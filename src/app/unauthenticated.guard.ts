@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class unauthenticationGuard implements CanActivate {
+export class unauthenticatedGuard implements CanActivate {
 
   constructor(
     private auth: AngularFireAuth, 

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.component';
 import { authenticationGuard } from './authentication.guard';
-import { unauthenticationGuard } from './unauthenticated.guard';
+import { unauthenticatedGuard } from './unauthenticated.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [authenticationGuard],
   },
 
-  {path: 'login', component: LoginPageComponent, canActivate: [unauthenticationGuard]},
+  {path: 'login', component: LoginPageComponent, canActivate: [unauthenticatedGuard]},
 ];
 
 @NgModule({

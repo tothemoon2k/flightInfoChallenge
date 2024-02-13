@@ -1,6 +1,22 @@
 <div class="w-screen h-screen flex items-end justify-center overflow-hidden">
     <img class="-z-10 absolute w-full brightness-50" src="/assets/img/bg-img.png" alt="">
 
+    <div *ngIf="showError" class="absolute top-4 left-4 bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg py-4 px-8 transition-all duration-500 ease-in-out" role="alert">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="flex-shrink-0 h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          </div>
+          <div class="ms-4">
+            <h3 class="text-sm font-semibold">
+                Incorrect Email or Password
+            </h3>
+            <div class="mt-1 text-sm text-red-700">
+              Please try again
+            </div>
+          </div>
+        </div>
+      </div>
+
     <div class="-mt-32 px-28 w-1/2 self-center">
         <h1 class="flex gap-8 text-white text-4xl font-semibold">
             <img class="h-24" src="https://monsterrg.com/wp-content/uploads/2021/08/MonsterLogo-secondary.png" alt="Monster Reservations Logo">
@@ -38,23 +54,21 @@
         <p class="mt-4 text-center text-sm font-medium">Or</p>
 
         <div class="mt-4 flex flex-col gap-4">
-            <button type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
+            <button (click)="googleLogIn()" type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
                 <img class="h-4 w-4" src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt="Google Logo">
                 Log in with Google
             </button>
 
-            <button type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
-                <img class="h-4 w-4" src="https://static-00.iconduck.com/assets.00/facebook-icon-512x512-seb542ju.png" alt="Facebook Logo">
-                Log in with Facebook
+            <button (click)="twitterLogIn()" type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
+                <img class="h-4 w-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png" alt="Twitter Logo">
+                Log in with Twitter
             </button>
 
-            <button type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
-                <img class="h-5 w-5" src="https://cdn3.iconfinder.com/data/icons/picons-social/57/16-apple-512.png" alt="Apple Logo">
-                Log in with Apple
+            <button (click)="githubLogIn()" type="button" class="text-gray-600 w-full border py-3 flex gap-2.5 justify-center items-center font-medium rounded-lg text-sm">
+                <img class="h-5 w-5 brightness-0" src="https://static-00.iconduck.com/assets.00/github-icon-2048x1988-jzvzcf2t.png" alt="GitHub Logo">
+                Log in with GitHub
             </button>
         </div>
-
-        <p class="text-sm mt-8 text-center">New User? <a class="underline font-medium" href="">Sign Up Here</a></p>
 
         <!--
         <div>
