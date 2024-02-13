@@ -17,10 +17,10 @@
         <h2 class="font-medium text-2xl">Log In to your Account</h2>
 
         <div class="mt-8">
-            <label [(ngModel)]="email" for="email" class="block text-sm font-medium mb-1.5">Email</label>
-            <input [(ngModel)]="email" type="email" id="email" class="py-3 px-4 block w-full border-gray-300 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="test@monster.com">
+            <label [(ngModel)]="email" ngDefaultControl for="email" class="block text-sm font-medium mb-1.5">Email</label>
+            <input [(ngModel)]="email" name="email" type="email" id="email" class="py-3 px-4 block w-full border-gray-300 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="test@monster.com">
             
-            <label for="password" class="mt-6 block text-sm font-medium mb-1.5">Password</label>
+            <label for="password" ngDefaultControl class="mt-6 block text-sm font-medium mb-1.5">Password</label>
             <input [(ngModel)]="password" type="password" id="password" class="py-3 px-4 block w-full border-gray-300 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="test@monster.com">
         </div>
 
