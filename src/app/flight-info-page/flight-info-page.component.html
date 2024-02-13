@@ -3,55 +3,125 @@
         <h2 class="text-2xl font-medium">Tripma</h2>
     
         <div class="flex items-center gap-12">
-            <ul class="flex gap-8 text-gray-500">
-                <li class="text-black">Flights</li>
-                <li>Hotels</li>
-                <li>Packages</li>
-                <li>Sign In</li>
-            </ul>
-        
-            <button (click)="logOut()" class="bg-black px-5 py-3 text-white font-medium rounded-xl">Sign Out</button>
+          <button (click)="logOut()" class="bg-black px-5 py-3 text-white font-medium rounded-xl">Sign Out</button>
         </div>
     </nav> 
 
-    <form class="mt-20 mx-auto w-5/6" action="">
-        <h1 class="mb-1.5 text-2xl font-medium">Passenger information</h1>
-        <p class="w-3/5 text-gray-500">Enter the required information for each traveler and be sure that it exactly matches the government-issued ID presented at the airport.</p>
+    <form class="mt-20 mx-auto w-5/6 relative" [formGroup]="flightInfoForm" (ngSubmit)="onSubmit()" action="#">
+        <div *ngIf="showErrorPopup" class="absolute -top-32 left-2 bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg py-4 px-8 transition-all duration-500 ease-in-out" role="alert">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="flex-shrink-0 h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            </div>
+            <div class="ms-4">
+              <h3 class="text-sm font-semibold">
+                There was an error with your submission
+              </h3>
+              <div class="mt-1 text-sm text-red-700">
+                Please fill in all the required fields
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showingSuccess" id="alert-3" class="w-full absolute -top-16 flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50" role="alert">
+          <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div class="ms-3 text-sm font-medium">
+            Successfully submitted your flight information!
+          </div>
+          <button (click)="closeSuccess()" type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8" data-dismiss-target="#alert-3" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+          </button>
+        </div>
+
+        <div *ngIf="showingError" id="alert-3" class="w-full absolute -top-16 flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50" role="alert">
+          <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div class="ms-3 text-sm font-medium">
+            There was an error submitting your flight information. Please try again later.
+          </div>
+          <button (click)="closeError()" type="button" class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8" data-dismiss-target="#alert-3" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+          </button>
+        </div>
+
+        <h1 class="mb-1.5 text-2xl font-medium">Flight Information</h1>
+        <p class="w-3/5 text-gray-500">Please provide the details below so we can confirm your reservation.</p>
         
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Airline</label>
+              <label for="airline" class="block text-sm font-medium leading-6 text-gray-900">Airline</label>
               <div class="mt-2">
-                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+                <input formControlName="airline"
+                [ngClass]="{
+                  'border-red-500': flightInfoForm.get('airline')?.invalid && (flightInfoForm.get('airline')?.dirty || flightInfoForm.get('airline')?.touched || isSubmitted)
+                }" type="text" placeholder="Delta" name="airline" id="airline" class="border border-gray-300 block w-full rounded-md px-2.5 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <span *ngIf="flightInfoForm.get('airline')?.invalid && (flightInfoForm.get('airline')?.dirty || flightInfoForm.get('airline')?.touched || isSubmitted)" class="text-xs font-medium text-red-500">This field is required</span>  
+            </div>
             </div>
 
             <div class="sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Arrival Time</label>
+              <label for="date" class="block text-sm font-medium leading-6 text-gray-900">Arrival Date</label>
               <div class="mt-2">
-                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
+                <input [ngClass]="{
+                  'border-red-500': flightInfoForm.get('arrivalDate')?.invalid && (flightInfoForm.get('arrivalDate')?.dirty || flightInfoForm.get('arrivalDate')?.touched || isSubmitted)
+                }"  formControlName="arrivalDate" type="date"  name="date" id="date" class="border border-gray-300 block w-full rounded-md px-2.5 py-1 font-medium text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <span *ngIf="flightInfoForm.get('arrivalDate')?.invalid && (flightInfoForm.get('arrivalDate')?.dirty || flightInfoForm.get('arrivalDate')?.touched || isSubmitted)" class="text-xs font-medium text-red-500">This field is required</span>  
+            </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="time" class="block text-sm font-medium leading-6 text-gray-900">Arrival Time</label>
+              <div class="mt-2">
+                <input [ngClass]="{
+                  'border-red-500': flightInfoForm.get('arrivalTime')?.invalid && (flightInfoForm.get('arrivalTime')?.dirty || flightInfoForm.get('arrivalTime')?.touched || isSubmitted)
+                }" formControlName="arrivalTime" type="time" name="time" id="time"class="border border-gray-300 block w-full rounded-md px-2.5 py-1 font-medium text-gray-900 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <span *ngIf="flightInfoForm.get('arrivalTime')?.invalid && (flightInfoForm.get('arrivalTime')?.dirty || flightInfoForm.get('arrivalTime')?.touched || isSubmitted)" class="text-xs font-medium text-red-500">This field is required</span>    
+            </div>
             </div>
     
             <div class="sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Flight Number</label>
+              <label for="flightNumber" class="block text-sm font-medium leading-6 text-gray-900">Flight Number</label>
               <div class="mt-2">
-                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input [ngClass]="{
+                  'border-red-500': flightInfoForm.get('flightNumber')?.invalid && (flightInfoForm.get('flightNumber')?.dirty || flightInfoForm.get('flightNumber')?.touched || isSubmitted)
+                }" formControlName="flightNumber" type="text" name="flightNumber" id="flightNumber" class="border border-gray-300 block w-full rounded-md px-2.5 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <span *ngIf="flightInfoForm.get('flightNumber')?.invalid && (flightInfoForm.get('flightNumber')?.dirty || flightInfoForm.get('flightNumber')?.touched || isSubmitted)" class="text-xs font-medium text-red-500">This field is required</span>    
               </div>
             </div>
     
 
             <div class="sm:col-span-3">
-              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Number of Guests</label>
+              <label for="numOfGuests" class="block text-sm font-medium leading-6 text-gray-900">Number of Guests</label>
               <div class="mt-2">
-                <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input [ngClass]="{
+                  'border-red-500': flightInfoForm.get('numOfGuests')?.invalid && (flightInfoForm.get('numOfGuests')?.dirty || flightInfoForm.get('numOfGuests')?.touched || isSubmitted)
+                }" formControlName="numOfGuests"id="numOfGuests" name="numOfGuests" type="number" min="1" max="99" class="border border-gray-300 block w-full rounded-md px-4 py-2 font-medium text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <span *ngIf="flightInfoForm.get('numOfGuests')?.invalid && (flightInfoForm.get('numOfGuests')?.dirty || flightInfoForm.get('numOfGuests')?.touched || isSubmitted)">This field is required</span>  
               </div>
             </div>
         </div>
 
-        <div class="mt-14 flex gap-4 items-center">
-            <button class="font-medium">Save and close</button>
-            <button class="bg-black py-3 px-4 text-white font-medium rounded-lg">Submit</button>
-        </div>
+        
+          <button [disabled]="loading" type="submit" class="mt-14 mb-6 flex items-center gap-2 bg-black py-3 px-4 text-white font-medium rounded-lg">
+            Submit
+            <div *ngIf="loading" role="status">
+              <svg aria-hidden="true" class="-mb-0.5 w-4 h-4 text-gray-600 animate-spin fill-white" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>                </svg>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
     </form>
 </div>
