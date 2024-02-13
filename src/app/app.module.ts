@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {AngularFireModule} from '@angular/fire/compat';
-import {AngularFireAuthModule} from '@angular/fire/auth/compat';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from 'src/environments/environment';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.component';
+import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.component'; 
 
 @NgModule({
   declarations: [
@@ -18,7 +17,14 @@ import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyA1BcjoiZBYG-kXyW8YxXQHNw36Wqx0uJs",
+      authDomain: "flightinfochallenge.firebaseapp.com",
+      projectId: "flightinfochallenge",
+      storageBucket: "flightinfochallenge.appspot.com",
+      messagingSenderId: "45513776829",
+      appId: "1:45513776829:web:00f7b65edf376d1696e1d4"
+  }),
   ],
   providers: [
     provideClientHydration()

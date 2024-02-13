@@ -4,6 +4,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.component';
 
 const routes: Routes = [
+  {path: '', component: FlightInfoPageComponent},
   {path: 'login', component: LoginPageComponent},
 ];
 
