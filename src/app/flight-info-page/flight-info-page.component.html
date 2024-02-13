@@ -1,4 +1,49 @@
-<h1>Flight Info Page</h1>
-<p>Welcome you are logged in!</p>
+<div class="w-screen h-screen">
+    <nav class="py-3 px-10 flex justify-between items-center">
+        <h2 class="text-2xl font-medium">Tripma</h2>
+    
+        <div class="flex items-center gap-12">
+            <ul class="flex gap-8 text-gray-500">
+                <li class="text-black">Flights</li>
+                <li>Hotels</li>
+                <li>Packages</li>
+                <li>Sign In</li>
+            </ul>
+        
+            <button (click)="logOut()" class="bg-black px-5 py-3 text-white font-medium rounded-xl">Sign Out</button>
+        </div>
+    </nav> 
 
-<button>Log out</button>
+    <form class="mt-20 mx-auto w-5/6" action="">
+        <h1 class="mb-1.5 text-2xl font-medium">Passenger information</h1>
+        <p class="w-3/5 text-gray-500">Enter the required information for each traveler and be sure that it exactly matches the government-issued ID presented at the airport.</p>
+        
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
+              <div class="mt-2">
+                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+    
+            <div class="sm:col-span-3">
+              <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+              <div class="mt-2">
+                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+    
+            <div class="sm:col-span-4">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="mt-2">
+                <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+        </div>
+
+        <div class="mt-14 flex gap-4 items-center">
+            <button class="font-medium">Save and close</button>
+            <button class="bg-black py-3 px-4 text-white font-medium rounded-lg">Submit</button>
+        </div>
+    </form>
+</div>

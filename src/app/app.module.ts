@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 
@@ -17,6 +18,7 @@ import { FlightInfoPageComponent } from './flight-info-page/flight-info-page.com
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyA1BcjoiZBYG-kXyW8YxXQHNw36Wqx0uJs",
       authDomain: "flightinfochallenge.firebaseapp.com",
